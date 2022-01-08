@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- Loading the properties file: sport.properties -->
+    <context:property-placeholder location="classpath:sport.properties"/>
+
+	<!-- Define your beans here -->
+
+	<!-- This is the bean that will be in charge of adding logging to our terminal, 
+		so that's why it is the first bean -->
+	<!-- Add a logger config to see logging messages. - For more detailed logs, 
+		set values to "FINEST" - For info on logging levels, see: http://www.vogella.com/tutorials/Logging/article.html -->
+	<bean id="myLoggerConfig"
+		class="com.luv2code.springdemo.MyLoggerConfig"
+		init-method="initLogger">
+		<property name="rootLoggerLevel" value="FINE" />
+		<property name="printedLoggerLevel" value="FINE" />
+	</bean>
+
+	<!-- Adding the dependencies first then the class that is using the dependency -->
+	<bean id="myFortune"
+		class="com.luv2code.springdemo.HappyFortuneService">
+	</bean>
+	<!-- Dependency for FortuneService2 -->
+	<bean id="myFortune2"
+		class="com.luv2code.springdemo.FortuneService2">
+	</bean>
+	
+	<!-- The id is the alias -->
+	<!-- Then we have to insert the fully qualified class name of implementation 
+		class -->
+	<bean id="myCoach" class="com.luv2code.springdemo.SwimmingCoach">
+		<!-- Setup the constructor injection -->
+		<constructor-arg ref="myFortune" />
+	</bean>
+	
+	<bean id="myCricketCoach" class="com.luv2code.springdemo.CricketCoach">
+		<!-- Setup the setter injection, first the attributeName (setAttributeName) then the id of the bean dependency-->
+		<property name="fortuneService" ref="myFortune"/>
+		<!-- Setup the setter injection for properties -->
+		<property name="emailAddress" value="${foo.email}" />
+		<property name="team" value="${foo.team}" />
+	</bean>
+	
+	<!-- Generating a new bean for SoccerCoach -->
+	<bean id="mySoccerCoach" class="com.luv2code.springdemo.SoccerCoach">
+		<!-- Setup the setter injection, first the attributeName (setAttributeName) then the id of the bean dependency-->
+		<property name="fortuneService" ref="myFortune"/>
+		<property name="fortuneService2" ref="myFortune2" />
+		<!-- Setup the setter injection for properties -->
+		<property name="emailAddress" value="${foo.email}" />
+		<property name="team" value="${foo.team}" />
+	</bean>
+
+</beans>
+
+
+
+
+

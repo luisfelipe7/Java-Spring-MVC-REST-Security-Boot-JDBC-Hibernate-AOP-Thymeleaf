@@ -1,0 +1,48 @@
+@charset "ISO-8859-1";
+
+
+.colorNavbar {
+	background-color: #0E2A4D;
+	color: white !important;
+}
+
+.navbar-brand {
+	background-color: #0E2A4D;
+	color: white !important;
+}
+
+.active {
+	background-color: #2F5789 !important;
+}
+
+.active a:hover {
+	color: black !important;
+}
+
+.nonactive  a:hover{
+	color: black !important;	
+}
+
+.colorLink {
+	color: white !important;
+	border-color: white !important;
+	border-width: 1px !important;
+	border-style: solid !important;
+}
+
+.colorLink a:hover {
+	color: black !important;
+}
+
+.thead {
+	background-color: #385984;
+	color:white;
+}
+
+.linkButton{
+	color: white !important;
+}
+
+.widthSearch{
+	height: 35.5px;
+}

@@ -72,6 +72,19 @@ public class CustomerController {
 		// Then redirecting to the table
 		return "redirect:/customer/list";
 	}
+	
+	
+	@PostMapping("/searchByName")
+	public String searchByName(@RequestParam("nameToSearch") String nameToSearch, Model theModel) {		
+		// Performing the search with the name entered
+		List<Customer> curstomersWithName = customerService.getCustomersByName(nameToSearch);
+		
+		// Updating the model with the result
+		theModel.addAttribute("customers", curstomersWithName);
+		
+		// Then redirecting to the table
+		return "list-customers";
+	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("customerId") int theId, Model theModel) {

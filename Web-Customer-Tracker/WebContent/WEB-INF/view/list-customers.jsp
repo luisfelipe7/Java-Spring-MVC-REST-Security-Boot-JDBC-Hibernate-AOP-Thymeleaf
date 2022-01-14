@@ -22,9 +22,11 @@
 
 <!-- Adding the JS File to load the modal -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/test.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sortable-table.js"></script>
 
 <!--  Importing CSS -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/styles.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/sortable-table.css" />
 
 </head>
 
@@ -68,10 +70,10 @@
 			<h1>List of Customers</h1>
 			<br>
 			<!-- Creating a form to post the data and do the search -->
-			<form action="StudentControllerServlet" method="POST">
+			<form action="searchByName" method="POST">
 				<!-- HIDDEN FIELD TO SAVE IN COMMAND THE ACTION ADD-->
 				<input type="hidden" name="command" value="SEARCH" />
-				<input type="text" class="inputlg col-xs-5 widthSearch" name="searchValue" placeholder="Enter the name that you want to search">
+				<input type="text" class="inputlg col-xs-5 widthSearch" name="nameToSearch" placeholder="Enter the name that you want to search">
 				<button type="submit" class="btn btn-primary">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
@@ -122,13 +124,34 @@
 					</c:if>
 				</c:if>
 
-				<table class="table table-responsive-xl table-bordered table-striped table-hover">
+				<table class="table table-responsive-xl table-bordered table-striped table-hover sortable">
 					<thead class="thead">
 						<tr>
-							<th>ID</th>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Email</th>
+							<th class="num" aria-sort="ascending">
+								<button>
+									Id
+									<span aria-hidden="true"></span>
+								</button>
+							</th>
+							<th>
+								<button>
+									First Name
+									<span aria-hidden="true"></span>
+								</button>
+
+							</th>
+							<th>
+								<button>
+									Last Name
+									<span aria-hidden="true"></span>
+								</button>
+							</th>
+							<th>
+								<button>
+									Email
+									<span aria-hidden="true"></span>
+								</button>
+							</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -137,7 +160,7 @@
 						<!-- Loop Over and Print Our Customers -->
 						<c:forEach var="tempCustomer" items="${customers}">
 							<tr>
-								<td>${tempCustomer.id}</td>
+								<td class="num">${tempCustomer.id}</td>
 								<td>${tempCustomer.firstName}</td>
 								<td>${tempCustomer.lastName}</td>
 								<td>${tempCustomer.email}</td>

@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /* With this we can use exception handler in any controller (globally) */
 @ControllerAdvice
-public class StudentRestExceptionHandler {
+public class CustomerRestExceptionHandler {
 
 	// Add exception handling code here
 
 	// Adding an exception handler using @ExceptionHandler
 
 	@ExceptionHandler
-	public ResponseEntity<CustomerErrorResponse> handleException(StudentNotFoundException exc) {
+	public ResponseEntity<CustomerErrorResponse> handleException(CustomerNotFoundException exc) {
 
 		// Create a StudentErrorResponse
 		CustomerErrorResponse error = new CustomerErrorResponse();

@@ -7,13 +7,13 @@ package com.luv2code.springdemo.rest;
  * @author Felipe Castro
  *
  */
-public class StudentErrorResponse {
+public class CustomerErrorResponse {
 	
 	private int status;
 	private String message;
 	private long timeStamp;
 	
-	public StudentErrorResponse() {
+	public CustomerErrorResponse() {
 		// Constructor without parameters
 	}
 	
@@ -22,7 +22,7 @@ public class StudentErrorResponse {
 	 * @param message
 	 * @param timeStamp
 	 */
-	public StudentErrorResponse(int status, String message, long timeStamp) {
+	public CustomerErrorResponse(int status, String message, long timeStamp) {
 		this.status = status;
 		this.message = message;
 		this.timeStamp = timeStamp;

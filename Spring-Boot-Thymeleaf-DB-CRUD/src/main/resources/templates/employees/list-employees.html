@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<!-- To use Thymeleaf expressions -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Employees List</title>
+<!-- Importing the CSS File / @ Symbol reference context path of your application -->
+<link rel="stylesheet" th:href="@{/css/myStyles.css}" />
+<!-- Importing Bootstrap Files -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<!-- Importing the JS File -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="container">
+		<br>
+		<h3>Employee Directory</h3>
+		<hr>
+		<br>
+		<!-- Button to Add Employee -->
+		<a th:href="@{/employees/showFormForAdd}" class="btn btn-primary btn-sm mb-3"> Add Employee </a>
+		<br>
+		<table class="table table-hover table-bordered" border="1">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="tempEmployee : ${employees}">
+					<th th:text="${tempEmployee.id}" scope="row" />
+					<td th:text="${tempEmployee.firstName}" />
+					<td th:text="${tempEmployee.lastName}" />
+					<td th:text="${tempEmployee.email}" />
+					<td>
+
+						<!-- Link to Update the Employee -->
+						<a class="btn btn-info btn-sm" th:href="@{/employees/showFormForUpdate(employeeId=${tempEmployee.id})}">Update </a>
+						<!-- Link to Delete the Employee -->
+						<button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="${'#deleteModal'+tempEmployee.id}">Delete</button>
+
+						<!-- Modal to confirm the delete -->
+						<div class="modal fade" th:id="'deleteModal'+${tempEmployee.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h3 class="modal-title" th:id="'exampleModalLabel'+${tempEmployee.id}">Confirm Delete</h3>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<h5 th:text="'Are you sure that you want to delete the employee with the id '+ ${tempEmployee.id} +' and name '+ ${tempEmployee.firstName}+' ?'" />
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">No, Close</button>
+										<button type="button" class="btn btn-danger">
+											<a th:href="@{/employees/deleteEmployee(employeeId=${tempEmployee.id})}" class="linkButton"> Yes, Delete! </a>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Adding Section to Display Alerts of Success at the moment of editing/adding/deleting -->
+		<div th:switch="${success}">
+			<div th:case="'add'">
+				<div class="alert alert-success alert-dismissible show" role="alert">
+					<strong>Employee Added SuccessFully</strong>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+			<div th:case="'edit'">
+				<div class="alert alert-success alert-dismissible show" role="alert">
+					<strong>Employee Updated SuccessFully</strong>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+			<div th:case="'delete'">
+				<div class="alert alert-success alert-dismissible show" role="alert">
+					<strong>Employee Deleted SuccessFully</strong>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+</body>
+</html>

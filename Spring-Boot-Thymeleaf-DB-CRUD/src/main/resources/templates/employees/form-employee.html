@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<!-- To use Thymeleaf expressions -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Add Employee</title>
+<!-- Importing the CSS File / @ Symbol reference context path of your application -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<!-- Importing the JS File -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="container">
+		<br>
+		<h3>Employee Directory</h3>
+		<hr>
+		<br>
+		<div th:switch="${type}">
+			<p class="h5 mb-4" th:case="'edit'">Update Employee</p>
+			<p class="h5 mb-4" th:case="*">Save Employee</p>
+		</div>
+		<form action="#" th:action="@{/employees/save}" th:object="${employee}" method="POST">
+			<input type="text" th:field="*{id}" hidden>
+			<input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" placeholder="First Name" minlength="3" maxlength="400" required="required">
+			<input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" placeholder="Last Name" minlength="3" maxlength="400">
+			<input type="email" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" minlength="7" maxlength="400">
+			<button type="submit" class="btn btn-info col-2">
+				<div th:switch="${type}">
+					<div th:case="'edit'">Update Employee</div>
+					<div th:case="*">Save Employee</div>
+				</div>
+			</button>
+		</form>
+		<hr>
+		<a th:href="@{/employees/list}">Back to Employees List</a>
+	</div>
+</body>
+</html>

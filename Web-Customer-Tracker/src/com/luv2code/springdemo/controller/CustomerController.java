@@ -72,16 +72,15 @@ public class CustomerController {
 		// Then redirecting to the table
 		return "redirect:/customer/list";
 	}
-	
-	
+
 	@PostMapping("/searchByName")
-	public String searchByName(@RequestParam("nameToSearch") String nameToSearch, Model theModel) {		
+	public String searchByName(@RequestParam("nameToSearch") String nameToSearch, Model theModel) {
 		// Performing the search with the name entered
 		List<Customer> curstomersWithName = customerService.getCustomersByName(nameToSearch);
-		
+
 		// Updating the model with the result
 		theModel.addAttribute("customers", curstomersWithName);
-		
+
 		// Then redirecting to the table
 		return "list-customers";
 	}
@@ -98,19 +97,18 @@ public class CustomerController {
 		// Send over to our form
 		return "customer-form";
 	}
-	
+
 	@GetMapping("/deleteCustomer")
-	public String deleteCustomer(RedirectAttributes redirectAttributes, @RequestParam("customerId") int theId, Model theModel) {
+	public String deleteCustomer(RedirectAttributes redirectAttributes, @RequestParam("customerId") int theId,
+			Model theModel) {
 		// Delete the customer with primary key
 		customerService.deleteCustomer(theId);
-		
+
 		// Update the message
 		redirectAttributes.addFlashAttribute("success", "delete");
-		
+
 		// Then redirect
 		return "redirect:/customer/list";
 	}
-	
-	
 
 }
